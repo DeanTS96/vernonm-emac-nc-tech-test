@@ -14,4 +14,17 @@ function fetchCards() {
     return cardsToReturn
 }
 
-module.exports = {fetchCards}
+function fetchCardById({cardId}) {
+    try {
+        for(const card of cards) {
+            if(card.id === cardId)
+            return card
+        }
+        return Promise.reject({status: 404, msg: 'Card does not exist'})
+    }
+    catch(err) {
+        return err
+    }
+}
+
+module.exports = {fetchCards, fetchCardById}

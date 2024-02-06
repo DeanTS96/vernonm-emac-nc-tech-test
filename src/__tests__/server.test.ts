@@ -25,3 +25,26 @@ describe('GET cards', () => {
     })
   })
 })
+
+describe('GET cardById', () => {
+  test('200: returns status 200 and requested card', async () => {
+    const response = await request(app).get('/cards/card002')
+  
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(expect.objectContaining({
+        card: {
+          id: 'card002',
+          title: 'card 2 title',
+          sizes: [ 'md' ],
+          basePrice: 200,
+          pages: expect.any(Array)
+      }
+    }));
+  })
+  test('404: returns status 404 when passed a card Id that doesn\'t exist', async () => {
+    const response = await request(app).get('/cards/card9999')
+
+    expect(response.status).toBe(404);
+    expect(response.body.msg).toBe('Card does not exist');
+  })
+})
