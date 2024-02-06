@@ -3,12 +3,11 @@ import * as express from "express";
 export const app = express()
 
 const handleErrors = require('./error.controllers/error.controller');
+const {getCards} = require('./controllers/cards.controller');
 
 app.set('json spaces', 2);
 
-app.get('/cards', async (req, res, next) => {
-  // respond with a list of cards
-})
+app.get('/cards', getCards);
 
 app.get('/cards/:cardId/:sizeId?', async () => {
   // respond with card by id

@@ -9,3 +9,19 @@ describe('GET Bad api endpoint', () => {
     expect(response.body.msg).toEqual('Bad api endpoint');
   })
 })
+
+describe('GET cards', () => {
+  test('200 returns status code 200 and a list of all cards', async () => {
+    const response = await request(app).get('/cards')
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(3);
+    response.body.forEach(card => {
+      expect(card).toEqual(expect.objectContaining({
+        id: expect.any(String),
+        imageUrl: expect.any(String),
+        title: expect.any(String),
+      }));
+    })
+  })
+})
