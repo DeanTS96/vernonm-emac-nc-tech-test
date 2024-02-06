@@ -1,4 +1,4 @@
-const {fetchCards, fetchCardById} = require('../models/cards.modals')
+const {fetchCards, fetchCardById, addCard} = require('../models/cards.modals')
 
 async function getCards(req, res, next) {
     try{
@@ -11,7 +11,6 @@ async function getCards(req, res, next) {
 }
 
 async function getCardById(req, res, next) {
-    console.log(fetchCardById)
     try {
         const card = await fetchCardById(req.params);
         res.status(200).send({card: card})
@@ -21,4 +20,14 @@ async function getCardById(req, res, next) {
     }
 }
 
-module.exports = {getCards, getCardById};
+async function postCard(req, res, next) {
+    try {
+        const card = await addCard(req.body)
+        res.status(201).send({card: card})
+    }
+    catch(err) {
+        next(err);
+    }
+}
+
+module.exports = {getCards, getCardById, postCard};
