@@ -1,6 +1,13 @@
 import * as request from 'supertest'
 import { app } from '../server'
 
+const {writeFile} = require('fs/promises')
+const backupCards = require('../cardsbackup.json');
+
+afterAll( async () => {
+  await writeFile(`${__dirname}/../data/cards.json`, JSON.stringify(backupCards, null, 2));
+});
+
 describe('GET Bad api endpoint', () => {
   test('404: returns status 404 and bad api endpoint', async () => {
     const response = await request(app).get('/endpoint-does-not-exist')
@@ -120,6 +127,13 @@ describe('POST cards', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.msg).toBe('invalid card data')
+  })
+})
+
+describe('DELETE cardByID', () => {
+  test('204: returns status code 204', async () => {
+    const response = await request(app).delete('/cards/card003')
+    expect(response.status).toBe(204);
   })
 })
 

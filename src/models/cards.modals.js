@@ -48,4 +48,16 @@ async function addCard(card) {
     }
 }
 
-module.exports = {fetchCards, fetchCardById, addCard}
+async function removeCard({cardId}) {
+    try {
+        const cardsWithoutPassedCard = cards.filter(filteredCard => {
+            if(filteredCard.id !== cardId) return filteredCard;
+        })
+        await writeFile(`${__dirname}/../data/cards.json`, JSON.stringify(cardsWithoutPassedCard, null, 2));
+    }
+    catch(err) {
+        return err
+    }
+}
+
+module.exports = {fetchCards, fetchCardById, addCard, removeCard}

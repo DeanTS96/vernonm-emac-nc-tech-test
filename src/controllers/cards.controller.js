@@ -1,4 +1,4 @@
-const {fetchCards, fetchCardById, addCard} = require('../models/cards.modals')
+const {fetchCards, fetchCardById, addCard, removeCard} = require('../models/cards.modals')
 
 async function getCards(req, res, next) {
     try{
@@ -30,4 +30,15 @@ async function postCard(req, res, next) {
     }
 }
 
-module.exports = {getCards, getCardById, postCard};
+async function deleteCard(req, res, next) {
+    try {
+        const card = await removeCard(req.params)
+        res.status(204).send()
+    }
+    catch(err) {
+        next(err);
+    }
+}
+
+
+module.exports = {getCards, getCardById, postCard, deleteCard};

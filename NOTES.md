@@ -1,1 +1,1 @@
-Please add any additional notes here…
+Just wanted to mention I took a break from from my last endpoint around 11:30, starting again at 12:30 so I did only take the 4 hours.
